@@ -1,6 +1,6 @@
 # 2019 San Francisco NF Hackathon
 
-The Children’s Tumor Foundation (CTF), the Neurofibromatosis Therapeutic Acceleration Program (NTAP), Sage Bionetworks, and the Silicon Valley AI group (SVAI) are excited to announce the second Neurofibromatosis (NF) hackathon that will be held in San Francisco in concomitance with the 2019 CTF Patient Forum and NF Conference.  The first-ever NF2 hackathon, held in SF in June 2017 (https://sv.ai/hackathon), focused on a single set of genetic data (donated by Onno Faber, entrepreneur, and NF2 patient). Following in the footsteps of this successful event, the 2019 Hackathon will focus on analyzing diverse datasets including genomic, drug screening, drug-target association, imaging, and other data for all the three conditions of NF (NF1, NF2, Schwannomatosis).
+The Children’s Tumor Foundation (CTF), the Neurofibromatosis Therapeutic Acceleration Program (NTAP), Sage Bionetworks, and the Silicon Valley AI group (SVAI) are excited to announce the second Neurofibromatosis (NF) hackathon that will be held in San Francisco in concomitance with the 2019 CTF Patient Forum and NF Conference.  The first-ever [NF2 hackathon](https://sv.ai/hackathon), held in SF in June 2017, focused on a single set of genetic data (donated by Onno Faber, entrepreneur, and NF2 patient). Following in the footsteps of this successful event, the 2019 Hackathon will focus on analyzing diverse datasets including genomic, drug screening, drug-target association, imaging, and other data for all the three conditions of NF (NF1, NF2, Schwannomatosis).
  
 We believe that open science, collaboration, and talented people are three main ingredients we need to bake a cure for NF. The event plans to attract experts in AI, Genomics, Bioinformatics, Computer Science, and Life Science to glean new insights into these rare diseases.  Gathering these experts to find new associations, new perspectives, and revolutionizing the way we think about NF will create the right turf where great discoveries could happen! 
  
@@ -15,7 +15,7 @@ If you like, you can also use these containers as a basis for creating your own 
 ### Prerequisites 
 
 These instructions assume that you:
-* have registered for a (Synapse account)[https://www.synapse.org/#!RegisterAccount:0] 
+* have registered for a [Synapse account](https://www.synapse.org/#!RegisterAccount:0) 
 * are a member of the [2019 Hackathon Participants Team](https://www.synapse.org/#!Team:3389360) on Synapse. 
 * have [installed Docker Community Edition](https://docs.docker.com/v17.12/install/) and that the docker service is running on your machine
 * are running a Unix-based OS, such as Ubuntu or Mac. These instructions have not been tested on Windows-based platforms.
