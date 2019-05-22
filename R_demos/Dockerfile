@@ -10,9 +10,18 @@ RUN apt-get install -y curl libcurl4-openssl-dev
 ## install synapser
 RUN R -e "install.packages('synapser', repos=c('http://ran.synapse.org', 'http://cran.fhcrc.org'))"
 
-## install bioconductor
+## install bioconductor packages
 RUN R -e "install.packages('BiocManager')"
-RUN R -e "BiocManager::install('GSVA', version = "3.8")"
-RUN R -e "BiocManager::install('GSEABase', version = "3.8")"
-RUN R -e "BiocManager::install('org.Hs.eg.db', version = "3.8")"
-RUN R -e "BiocManager::install('limma', version = "3.8")"
+RUN R -e "BiocManager::install('GSVA')"
+RUN R -e "BiocManager::install('GSEABase')"
+RUN R -e "BiocManager::install('org.Hs.eg.db')"
+RUN R -e "BiocManager::install('limma')"
+
+## install cran packages
+RUN R -e "install.packages('gProfilerR')"
+RUN R -e "install.packages('umap')"
+RUN R -e "install.packages('dbscan')"
+
+#COPY 0-setup.Rmd ~/home/rstudio/0-setup.Rmd 
+COPY 1-rnaseq-data-introduction.Rmd /home/rstudio/1-rnaseq-data-introduction.Rmd
+COPY 2-drug-screening-introduction.Rmd /home/rstudio/2-drug-screening-introduction.Rmd
