@@ -35,6 +35,6 @@ These instructions assume that you:
 2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
 3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:py_demos` to get the Docker image. 
 4. Do `docker run -p 8888:8888 docker.synapse.org/syn18666641/nf_hackathon:py_demos` to start the container.
-5. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=4057a721291fd65ea13fd9e3d5a9e842a8b3c3fc0fe1cd2b`. 
+5. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. 
 6. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
