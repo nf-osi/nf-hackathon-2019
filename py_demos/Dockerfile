@@ -1,12 +1,11 @@
+##Start from base jupyter notebook docker container
 FROM jupyter/datascience-notebook
 
-RUN apt-get update && apt-get install -y \
-	python3 \
-	python3-pip \
-	python3-pandas
+##jupyter does not have root user as default, so switch to root to use apt-get and pip3
+USER root 
 
-RUN pip3 install --upgrade pip
-RUN pip3 install synapseclient
+#upgrade pip and get synapseclient
+RUN pip install --upgrade pip
+RUN pip install synapseclient
 
-COPY 0-setup.ipynb ~/0-setup.ipynb
-
+COPY 0-setup.ipynb /home/jovyan/work/0-setup.ipynb
