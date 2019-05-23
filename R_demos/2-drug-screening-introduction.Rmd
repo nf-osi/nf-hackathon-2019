@@ -34,7 +34,7 @@ synLogin()
 set.seed('90210') ##set a seed for reproducibility
 ```
 
-## Prepare the drug-target dataset. 
+## Prepare the drug-target dataset 
 
 We've already done some of the hard work of mapping NF drug screening IDs together with target data, so we just need to filter down to get a list of targets. We'll assume everything with a pChEMBL >6 is a "real" target. First, we'll get the drug IDs and targets for those drugs:
 
@@ -49,7 +49,7 @@ head(targets)
 
 ```
 
-## Prepare the drug screening data. 
+## Prepare the drug screening data 
 
 In these experiments, researchers treat tumors (or cell lines) with drugs or experimental molecules to figure out whether these tumors are sensitive to these drugs. These compounds have molecular _targets_ that the drug binds to and activates or inactivates to affect a biological pathway in the tumors. We'll take a systematic look at all of these to see if a single NF tumor type - plexiform neurofibroma - is sensitive to any particular drug targets. 
 
@@ -121,7 +121,8 @@ target_data_filt <- drug_data_filt %>%
   column_to_rownames("DT_explorer_internal_id") %>% 
   as.matrix()
 ```
-#Dose-response visualization
+
+# Dose-response visualization
 
 To get a sense of what this data usually looks like, we can take a look at some specific drugs. mTOR inhibitors are a class of drugs known to inhibit plexiform neurofibromas. KIF11 inhibitors are not associated with this (as far as we know).
 
