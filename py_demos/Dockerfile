@@ -7,3 +7,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip3 install --upgrade pip
 RUN pip3 install synapseclient
+
+COPY 0-setup.ipynb ~/0-setup.ipynb
+
