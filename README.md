@@ -43,9 +43,11 @@ These instructions assume that you:
 *IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output docker.synapse.org/syn18666641/nf_hackathon:py_demos
 ` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
 
-### Google Cloud 
+### Google Cloud Prerequisites 
 
 Please note, it's not necessary to run any of the docker containers we provide on the cloud, but we've provided instructions for doing this on Google Cloud if you prefer. This information will also be helpful if you want to use any other Rstudio or jupyter notebook-based Docker containers to conduct your analysis during the hackathon. 
+
+Before proceeding to the next steps, you'll need to create a Google Cloud account if you do not already have one. 
 
 1. Log into Google Cloud Platform and click on Compute Engine, followed by VM Instances. Click "Create". 
 2. Name your instance, select a zone, and under "boot disk" click "change". 
