@@ -45,7 +45,7 @@ These instructions assume that you:
 3. Select a container optimized image: "Container-Optimized OS 73-xxxxx.xxx.x stable" 
 4. Click "Allow HTTP Traffic", and then "Create"
 5. After the instance has started, click "SSH" to open a new SSH window. 
-6. Move to step 2 of the [GCP RStudio instructions](#rstudio-docker-image-gcp) or [GCP jupyter instructions](#jupyter-docker-image).
+6. Move to step 2 of the [GCP RStudio instructions](#rstudio-docker-image-gcp) or [GCP jupyter instructions](#jupyter-docker-image-gcp).
 
 ### RStudio Docker Image (GCP)
 
