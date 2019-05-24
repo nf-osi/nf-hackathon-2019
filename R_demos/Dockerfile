@@ -22,6 +22,8 @@ RUN R -e "install.packages('gProfilerR')"
 RUN R -e "install.packages('umap')"
 RUN R -e "install.packages('dbscan')"
 
+RUN mkdir /home/rstudio/output
+
 COPY 0-setup.Rmd /home/rstudio/0-setup.Rmd 
 COPY 1-rnaseq-data-introduction.Rmd /home/rstudio/1-rnaseq-data-introduction.Rmd
 COPY 2-drug-screening-introduction.Rmd /home/rstudio/2-drug-screening-introduction.Rmd
