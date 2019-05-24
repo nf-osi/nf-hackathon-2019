@@ -18,9 +18,9 @@ These instructions assume that you:
 * have registered for a [Synapse account](https://www.synapse.org/#!RegisterAccount:0) 
 * are a member of the [2019 Hackathon Participants Team](https://www.synapse.org/#!Team:3389360) on Synapse. 
 * have [installed Docker Community Edition](https://docs.docker.com/v17.12/install/) and that the docker service is running on your machine
-* are running a Unix-based OS, such as Ubuntu or Mac. These instructions have not been tested on Windows-based platforms.
+* are running a Unix-based OS, such as Ubuntu or Mac. These instructions have not been tested on Windows-based platforms. If you are using Google Cloud Platform, please see the [Google Cloud Docker instructions](#google-cloud).
 
-### RStudio Docker Image
+### RStudio Docker Image (Local)
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
@@ -29,7 +29,7 @@ These instructions assume that you:
 5. Open your preferred browser and navigate to `localhost:8787`. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
-### jupyter Docker Image
+### jupyter Docker Image (Local)
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
@@ -38,3 +38,23 @@ These instructions assume that you:
 5. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. 
 6. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
+### Google Cloud 
+
+
+### RStudio Docker Image (GCP)
+
+1. Open a command line interface, such as Terminal. 
+2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
+3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:R_demos` to get the Docker image. 
+4. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 docker.synapse.org/syn18666641/nf_hackathon:R_demos` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+5. Open your preferred browser and navigate to `localhost:8787`. 
+6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
+
+### jupyter Docker Image (GCP)
+
+1. Open a command line interface, such as Terminal. 
+2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
+3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:py_demos` to get the Docker image. 
+4. Do `docker run -p 8888:8888 docker.synapse.org/syn18666641/nf_hackathon:py_demos` to start the container.
+5. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. 
+6. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
