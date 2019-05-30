@@ -48,3 +48,6 @@ synLogin()
 ```
 
 
+## Proceed to the next module. 
+
+Return to the Files pane in the lower right and open the next module: `1-rnaseq-data-introduction.rmd`.
