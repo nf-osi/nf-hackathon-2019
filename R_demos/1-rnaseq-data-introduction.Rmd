@@ -157,7 +157,7 @@ singleGeneBarplot(genes.with.meta,'NF2')
 
 ## Dimensionality Reduction
 
-To explore the data and find meaningful differences between samples, we first perform some dimensionality reduction using principal component analysis. We can then look at the genes that are top contributors to the first few principal components. Here we notice that the dataset seems to have two distinct clusters. We encourage the participant to investigate what may be contributing to this clustering (_hint: color the plot by different column names to findout_)
+To explore the data and find meaningful differences between samples, we first perform some dimensionality reduction using principal component analysis. We can then look at the genes that are top contributors to the first few principal components. 
 
 ```{r PCA, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 
@@ -305,6 +305,15 @@ map <- getBM(attributes=c("entrezgene","hgnc_symbol"),mart=mart,filters='chromos
 entrez<-map[match(rownames(mat),map[,2]),1]
 mat<-mat[which(!is.na(entrez)),]
 rownames(mat)<-entrez[!is.na(entrez)]
+
+# override parallel::detectCores in case it fails to prevent gsva from failing
+requireNamespace(parallel)
+if (is.na(parallel::detectCores())) {
+  my.detectCores = function() {
+    return(1)
+  }
+  assignInNamespace("detectCores", my.detectCores, ns="parallel", envir=as.environment("package:parallel"))
+}
 
 res=gsva(mat,method='ssgsea',gset.idx.list=c2BroadSets)
 
