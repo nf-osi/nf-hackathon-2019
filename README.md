@@ -26,7 +26,7 @@ These instructions assume that you:
 2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
 3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:R_demos` to get the Docker image. 
 4. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 docker.synapse.org/syn18666641/nf_hackathon:R_demos` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
-5. Open your preferred browser and navigate to `localhost:8787`. 
+5. Open your preferred browser and navigate to `localhost:8787`. Login using the username "rstudio" and the password that you set in step 4. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
 *IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output docker.synapse.org/syn18666641/nf_hackathon:R_demos` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
@@ -63,7 +63,7 @@ Please note, it's not necessary to run any of the docker containers we provide o
 2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
 3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:R_demos` to get the Docker image.
 4. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 docker.synapse.org/syn18666641/nf_hackathon:R_demos` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
-5. Open your preferred browser and use the External IP you noted in step 8 of the previous section to navigate to `external_ip:8787` - e.g. `12.345.678.910:8787`. Enter the user "rstudio" and password that you created with `docker run`.
+5. Open your preferred browser and use the External IP you noted in step 8 of the previous section to navigate to `external_ip:8787` - e.g. `12.345.678.910:8787`. Login using the username "rstudio" and the password that you set in step 4. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
 *IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output docker.synapse.org/syn18666641/nf_hackathon:R_demos` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
