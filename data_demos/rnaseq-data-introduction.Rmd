@@ -48,7 +48,7 @@ library(tidyverse)
 
 ## Logging in to Synapse
 
-Please download your favorite Synapse client: [R](https://r-docs.synapse.org/) or [Python client](https://python-docs.synapse.org//build/html/index.html). Refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) or [Python](https://python-docs.synapse.org//build/html/index.html) to successfully log in to synapse and start using its various analytical tools.
+Please download your favorite Synapse client: [R](https://r-docs.synapse.org/) and refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) to successfully log in to synapse and start using its various analytical tools.
 
 ```{r login_to_synapse, eval=TRUE, echo=TRUE}
 
@@ -202,8 +202,7 @@ myEnv$tab2
 
 
 
-Here we notice that the dataset seems to have two distinct clusters. We encourage the participant to investigate what may be contributing to this clustering (_hint: color the plot by different column names to findout_)
-
+Here we notice that the dataset seems to have two distinct clusters. 
 
 ## Differences in gene expression between conditions
 
