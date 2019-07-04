@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Getting Started
 
-This document aims to guide the Research Case participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available exomeSeq datasets. The available dataset has been carefully curated to include genomic variant (exomeSeq) data from normal and three different tumor types from two different study initiatives into a single platform (a harmonized dataset). 
+This document aims to guide the hackathon participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available exomeSeq datasets. The available dataset has been carefully curated to include genomic variant (exomeSeq) data from normal and three different tumor types from two different study initiatives into a single platform (a harmonized dataset). 
 
 The scope of this document is to inform participants:
 
