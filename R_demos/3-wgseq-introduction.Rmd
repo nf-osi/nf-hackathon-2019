@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Getting Started
 
-This document aims to guide the Research Case participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available [whole genome sequence](https://ghr.nlm.nih.gov/primer/testing/sequencing) dataset. The available dataset is a harmonized dataset including genomic variant (WGS) data from normal and two different tumor types from two different study initiatives. 
+This document aims to guide the hackathon participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available [whole genome sequence](https://ghr.nlm.nih.gov/primer/testing/sequencing) dataset. The available dataset is a harmonized dataset including genomic variant (WGS) data from normal and two different tumor types from two different study initiatives. 
 
 The scope of this document is to inform participants:
 
