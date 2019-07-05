@@ -121,7 +121,23 @@ ggplot(aes(x=sex))+
     ggtitle('Exome-seq sample distribution')
 ```
 
-We can also look at the different types of mutations observed for various genes according to the tumor type. 
+We can also look at the different types of mutations observed for various genes in our dataset according to the tumor type. The different types of variants recognized in our dataset include:
+
+Variant_classification | Description
+--- | ---
+Nonsense_Mutation | Mutation leading to change of a coding codon to stop codon
+Splice_Site | Mutation leading to change in splice site
+Missense_Mutation | Mutation resulting in change in amino acid
+In_Frame_Del | Deletion of nucleotides divisible by three leading to deletions of amino acids
+In_Frame_Ins | Insertion of nucleotides divisible by three leading to insertion of amino acids
+Frame_Shift_Ins | Insertions of nucleotides (not divisible by three) such that codons downstream of the insertion are shifted resulting in a malformed protein or nonsense-mediated decay
+Frame_Shift_Del | Deletions of nucleotides (not divisible by three) such that codons downstream of the deletion are shifted resulting in a malformed protein or nonsense-mediated decay
+Translation_Start_Site | Mutation causing changes in translation start site
+Nonstop_Mutation | SNP in stop codon that disrupts the stop codon causing continued translation
+
+More information regarding variants can be found [here](https://uswest.ensembl.org/info/genome/variation/prediction/classification.html#classes)
+
+
 
 ```{r waterfallplot, eval=TRUE, results='show', message=FALSE, warning=FALSE, include=TRUE, fig.height=8, fig.width=8}
 
