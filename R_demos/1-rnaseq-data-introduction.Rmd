@@ -48,7 +48,7 @@ library(tidyverse)
 
 ## Logging in to Synapse
 
-Please download your favorite Synapse client: [R](https://r-docs.synapse.org/) or [Python client](https://python-docs.synapse.org//build/html/index.html). Refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) or [Python](https://python-docs.synapse.org//build/html/index.html) to successfully log in to synapse and start using its various analytical tools.
+Please download the Synapse R client: [R](https://r-docs.synapse.org/) and refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) to successfully log in to synapse and start using its various analytical tools.
 
 ```{r login_to_synapse, eval=TRUE, echo=TRUE}
 
@@ -76,7 +76,7 @@ genes.with.meta<-read.csv(gzfile(fileEntity$path))
 
 ## Structure of the file
 
-```{r explore_data, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r explore_data, echo=T, eval=TRUE, message=FALSE, warning=FALSE}
 
 ##Inspect the file
 print("Dimensions of the file:")
@@ -111,7 +111,7 @@ Var | Description
 The metadata in a healthcare study includes descriptions of the specimens, and the details of the studies they originated from. We can explore the metadata by visualizing various aspects of it to get a sense of the data contained within our dataset and put it in context of the disease and patients.
 
 For example, we can visualize the data distribution according to sex.
-```{r explore_metadata, echo=FALSE, eval=TRUE, results='asis', message=FALSE, warning=FALSE}
+```{r explore_metadata, echo=T, eval=TRUE, results='asis', message=FALSE, warning=FALSE}
 
 
 #Plot Metadata
@@ -136,7 +136,7 @@ analyzeMetdataWithGenes(genes.with.meta, "NF_hackathon", "NF1", "NF2", "GFAP")
 
 We can further visualize the expression of specific genes in different tumorTypes to investigate the possible contribution of that gene to the progression of various tumorTypes.For example lets plot the expression levels of the genes _GFAP_ _(astrocyte-specific marker gene)_, _NF1_ _(neurofibromin 1 gene)_, _NF2_ _(neurofibromin 2 gene)_ in different tumortypes. Since our datasets contain human data, make sure to include gene names specific to humans.
 
-```{r Gene_exp_lookup, echo=FALSE, eval=TRUE, results='asis', message=FALSE, warning=FALSE}
+```{r Gene_exp_lookup, echo=T, eval=TRUE, results='asis', message=FALSE, warning=FALSE}
 
 ##barplot
 
@@ -159,7 +159,7 @@ singleGeneBarplot(genes.with.meta,'NF2')
 
 To explore the data and find meaningful differences between samples, we first perform some dimensionality reduction using principal component analysis. We can then look at the genes that are top contributors to the first few principal components. 
 
-```{r PCA, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+```{r PCA, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 
 ###PCA plots  
 
@@ -202,14 +202,13 @@ myEnv$tab2
 
 
 
-Here we notice that the dataset seems to have two distinct clusters. We encourage the participant to investigate what may be contributing to this clustering (_hint: color the plot by different column names to findout_)
-
+Here we notice that the dataset seems to have two distinct clusters. 
 
 ## Differences in gene expression between conditions
 
 One of the fundamental questions of interest is whether expression of a gene of interest is different in various conditions. For example, is the expression of our favorite genes different in males vs females. To answer this question we can compare the *normalized* expression levels of our genes of interest between males and females and visualize the fold change in expression between the sexes in the following boxplot. Please note that for comparision of gene expression, we generally use normalized log counts instead of raw counts.
 
-```{r DEG_analysis, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+```{r DEG_analysis, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 
 #take log of counts
 with.log=genes.with.meta%>%mutate(logCounts=log10(totalCounts+0.0001))
@@ -243,7 +242,7 @@ diffExBoxplot(diffexdata,'NF2')
 
 While thousands of genes can change expression levels, the biological relevance of such changes are estimated by investigating the changes in biological processes in which the genes are involved. To get a sense of which biological processes may be linked to our list of upregulated or downregulated genes, we may perform a _Gene Ontology (GO) Enrichment Analysis_ and visualize the most common processes relevant to our analysis. In the following plot, the biological processes enriched in our list of upregulated genes (left, G1) and downregulated genes (right, G2) for Low Grade Glioma is visualized in the form of a word cloud. The most significantly enriched term is on the top. These terms can give us subtle indications as to which cellular signaling pathways or gene regulatory networks may be most interesting in our follow-up analyses.
 
-```{r GOsummaries, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+```{r GOsummaries, echo=T, eval=TRUE, message=FALSE, warning=FALSE}
 
 #Make gene lists
 DEG_genelist <- diffexdata[order(-diffexdata$MaleVsFemale),]
@@ -287,7 +286,7 @@ plot(gosummaries_object,
 
 Generally disease conditions can change a _group of genes_ ( _gene-sets_ ) simultaneously, thus affecting one or more cellular signaling pathways and gene regulatory networks. Changes in _gene-sets_ can be visualized to get an idea about how cellular signaling pathways may be affected by the disease condition.
 
-```{r PathwayAnalysis, echo=FALSE, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+```{r PathwayAnalysis, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 
 library(GSVA)
 library(GSVAdata)
