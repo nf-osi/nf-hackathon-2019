@@ -48,7 +48,7 @@ library(tidyverse)
 
 ## Logging in to Synapse
 
-Please download your favorite Synapse client: [R](https://r-docs.synapse.org/) and refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) to successfully log in to synapse and start using its various analytical tools.
+Please download the Synapse R client: [R](https://r-docs.synapse.org/) and refer to the necessary docs [synapser docs](https://r-docs.synapse.org/articles/synapser.html#connecting-to-synapse) to successfully log in to synapse and start using its various analytical tools.
 
 ```{r login_to_synapse, eval=TRUE, echo=TRUE}
 
