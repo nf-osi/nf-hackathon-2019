@@ -59,7 +59,6 @@ Please look up the SynID of the relevant datafile and access it using the __synG
 
 ```{r load data, eval=TRUE, results='show', message=FALSE, warning=FALSE}
 
-#here() # check working directory
 entity <- synGet("syn20338782")  # access file entity 
 wgs_data <- read_csv(entity$path) # read csv file (dataframe with associated metadata)
 
