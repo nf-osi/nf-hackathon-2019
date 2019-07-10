@@ -137,7 +137,7 @@ kif11 <- targets %>% filter(hugo_gene %in% c("KIF11")) %>% select(internal_id, s
 mtor_kif11 <- bind_rows(mtor,kif11) %>% filter(internal_id %in% drug_data_filt_1$DT_explorer_internal_id) %>% mutate(std_name = str_trunc(as.character(std_name),15))
 
 drug_data_filt_heatmap<- drug_data_filt_1 %>% 
-  filter(model_name != "ipNF95.11b C") %>% 
+  filter(model_name !="ipNF95.11b C") %>% 
   filter(DT_explorer_internal_id %in% mtor_kif11$internal_id) %>% 
   group_by(model_name, DT_explorer_internal_id) %>% 
   summarize('median_response' = median(response))%>% 
@@ -156,7 +156,7 @@ pheatmap::pheatmap(drug_data_filt_heatmap,
 
 ```
 
-It looks like KIF11 inhibitors are generally not effective (high IC50) while mTOR inhibitors are quite potent (IC50 < 5 nM). However, this is an oversimplification. Most of these molecules have many targets, not just one, and there's lots of overlap between molecules. It might be better to map the space of all targets of a drug rather than just look at one at a time. One approach to doing this is to use a dimensionality reduction technique. 
+It looks like KIF11 targeting drugs (gossypol, ispinesib, sb-743921 and CHEMBL399251) are generally not effective (high IC50) while mTOR inhibitors are quite potent (IC50 < 5 nM). However, this is an oversimplification. Most of these molecules have many targets, not just one, and there's lots of overlap between molecules. It might be better to map the space of all targets of a drug rather than just look at one at a time. One approach to doing this is to use a dimensionality reduction technique. 
 
 ## Dimensionality Reduction
 
@@ -188,7 +188,7 @@ ggplot(foo2) + geom_point(aes(x = V1, y = V2, color = log(median_response)), alp
 
 ##Plot results with labels
 
-Let's label the drug names there the IC50 is 50nM or less, which is a pretty potent response in cell lines.
+Let's label the drug names where the IC50 is 50nM or less, which is a pretty potent response in cell lines.
 
 ```{r}
 ggplot(foo2) + geom_point(aes(x = V1, y = V2, color = log(median_response)), alpha = 0.5) + 
@@ -208,7 +208,8 @@ Well, we can use `umap` to reduce the dimensionality of the drug-target data, an
 foo <- umap(target_data_filt, 
             method = "naive", 
             epochs = 500,
-            n_neighbors=3,
+            n_neighbors=6,
+            n_components=3,
             metric = "euclidean",
             random.state = 90210)
 
@@ -240,7 +241,7 @@ ggplot(foo2) +
 plot(clusters)
 ```
 
-We can also color the individual clusters as defined by HDBCLUST. There are lots of very close clusters, so this isn't the most straightforward visualization, but you can get a general sense that the color of the cluster maps closely to the magnitude of the components for each point - i.e. clusters are spatially visible. 
+We can also color the individual clusters as defined by HDBSCAN. There are lots of very close clusters, so this isn't the most straightforward visualization, but you can get a general sense that the color of the cluster maps closely to the magnitude of the components for each point - i.e. clusters are spatially visible. 
 
 ```{r}
 
@@ -264,5 +265,9 @@ ggplot(foo3) +
                               distinct(), aes(x = V1, y=V2, label = std_name, fill = cluster), size = 1.5)+
   labs(x = 'Component 1', y = "Component 2")
 
+```
+
+```{r}
+sessionInfo()
 ```
 
