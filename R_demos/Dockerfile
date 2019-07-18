@@ -10,6 +10,7 @@ RUN apt-get install -y curl libcurl4-openssl-dev
 ## install synapser
 RUN R -e "install.packages('synapser', repos=c('http://ran.synapse.org', 'http://cran.fhcrc.org'))"
 
+
 ## install bioconductor packages
 RUN R -e "install.packages('BiocManager')"
 RUN R -e "BiocManager::install('GSVA')"
