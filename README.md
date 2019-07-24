@@ -25,24 +25,22 @@ These instructions assume that you:
 ### RStudio Docker Image (Local)
 
 1. Open a command line interface, such as Terminal. 
-2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
-3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:R_demos` to get the Docker image. 
-4. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 docker.synapse.org/syn18666641/nf_hackathon:R_demos` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
-5. Open your preferred browser and navigate to `localhost:8787`. Login using the username "rstudio" and the password that you set in step 4. 
-6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
+2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
+3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+4. Open your preferred browser and navigate to `localhost:8787`. Login using the username "rstudio" and the password that you set in step 3. 
+5. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
-*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output docker.synapse.org/syn18666641/nf_hackathon:R_demos` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output nfosi/nf-hackathon-2019-r` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
 
 ### jupyter Docker Image (Local)
 
 1. Open a command line interface, such as Terminal. 
-2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
-3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:py_demos` to get the Docker image. 
-4. Do `docker run -p 8888:8888 docker.synapse.org/syn18666641/nf_hackathon:py_demos` to start the container.
-5. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. 
-6. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
+2. Do `docker pull nfosi/nf-hackathon-2019-py` to get the Docker image. 
+3. Do `docker run -p 8888:8888 nfosi/nf-hackathon-2019-py` to start the container.
+4. Open your preferred browser and navigate to the one of the links provided in your Terminal window after running the previous command. It should look something like: `http://127.0.0.1:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. 
+5. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
-*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output docker.synapse.org/syn18666641/nf_hackathon:py_demos
+*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output nfosi/nf-hackathon-2019-py
 ` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
 
 ### Google Cloud 
@@ -62,21 +60,19 @@ Please note, it's not necessary to run any of the docker containers we provide o
 ### RStudio Docker Image (GCP)
 
 1. Open a command line interface, such as Terminal. 
-2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
-3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:R_demos` to get the Docker image.
-4. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 docker.synapse.org/syn18666641/nf_hackathon:R_demos` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
+3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
 5. Open your preferred browser and use the External IP you noted in step 8 of the previous section to navigate to `external_ip:8787` - e.g. `12.345.678.910:8787`. Login using the username "rstudio" and the password that you set in step 4. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
-*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output docker.synapse.org/syn18666641/nf_hackathon:R_demos` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -e PASSWORD=pwd --rm -p 8787:8787 -v $PWD/output:/home/rstudio/output nfosi/nf-hackathon-2019-r` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+
 ### jupyter Docker Image (GCP)
 
 1. Open a command line interface, such as Terminal. 
-2. Do `docker login docker.synapse.org` and enter your Synapse credentials to log into the Synapse Docker repository.
-3. Do `docker pull docker.synapse.org/syn18666641/nf_hackathon:py_demos` to get the Docker image. 
-4. Do `docker run -p 8888:8888 docker.synapse.org/syn18666641/nf_hackathon:py_demos` to start the container. 
-5. The GCP SSH window will provide a link after running the previous command. It should look something like: `http://(c89a7a7be700 or 127.0.0.1):8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. Replace the portion in parentheses with your instance External IP address that you noted in Step 8 of the [Google Cloud Docker instructions](#google-cloud) section. Navigate to this address, e.g. `http://12.345.678.910:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234.`
-6. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
+2. Do `docker pull nfosi/nf-hackathon-2019-py` to get the Docker image. 
+3. Do `docker run -p 8888:8888 nfosi/nf-hackathon-2019-py` to start the container.
+4. The GCP SSH window will provide a link after running the previous command. It should look something like: `http://(c89a7a7be700 or 127.0.0.1):8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. Replace the portion in parentheses with your instance External IP address that you noted in Step 8 of the [Google Cloud Docker instructions](#google-cloud) section. Navigate to this address, e.g. `http://12.345.678.910:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234.`
+5. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
-*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output docker.synapse.org/syn18666641/nf_hackathon:py_demos
-` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output nfosi/nf-hackathon-2019-py`. Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
