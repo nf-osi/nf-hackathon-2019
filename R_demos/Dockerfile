@@ -34,3 +34,5 @@ RUN mkdir /home/rstudio/output
 COPY 0-setup.Rmd /home/rstudio/0-setup.Rmd 
 COPY 1-rnaseq-data-introduction.Rmd /home/rstudio/1-rnaseq-data-introduction.Rmd
 COPY 2-drug-screening-introduction.Rmd /home/rstudio/2-drug-screening-introduction.Rmd
+COPY 3-wgseq-introduction.Rmd /home/rstudio/3-wgseq-introduction.Rmd
+COPY 4-exomeseq-introduction.Rmd /home/rstudio/4-exomeseq-introduction.Rmd
