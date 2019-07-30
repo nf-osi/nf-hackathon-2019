@@ -15,3 +15,5 @@ RUN mkdir /home/jovyan/work/output
 COPY 0-setup.ipynb /home/jovyan/work/0-setup.ipynb
 COPY 1-rnaseq-intro.ipynb /home/jovyan/work/1-rnaseq-intro.ipynb
 COPY 2-drug-screening.ipynb /home/jovyan/work/2-drug-screening.ipynb
+COPY 3-wgs-intro.ipynb /home/jovyan/work/3-wgs-intro.ipynb
+COPY 4-exomeseq-intro.ipynb /home/jovyan/work/4-exomeseq-intro.ipynb
