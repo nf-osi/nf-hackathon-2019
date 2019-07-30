@@ -5,7 +5,7 @@ FROM jupyter/base-notebook
 USER root 
 
 RUN apt-get update
-Run apt-get -y install gcc
+RUN apt-get -y install gcc
 
 #upgrade pip and get synapseclient
 RUN pip install --upgrade pip
