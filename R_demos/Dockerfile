@@ -9,6 +9,7 @@ RUN apt-get install -y curl libcurl4-openssl-dev
 
 ## install synapser
 RUN R -e "install.packages('synapser', repos=c('http://ran.synapse.org', 'http://cran.fhcrc.org'))"
+RUN R -e "install.packages('synapserutils', repos=c('http://ran.synapse.org', 'http://cran.fhcrc.org'))"
 
 
 ## install bioconductor packages
@@ -28,6 +29,14 @@ RUN R -e "install.packages('dbscan')"
 RUN R -e "install.packages('ggfortify')"
 RUN R -e "install.packages('pheatmap')"
 RUN R -e "install.packages('ggpubr')"
+RUN R -e "install.packages('DT')"
+RUN R -e "install.packages('maftools')"
+RUN R -e "install.packages('here')"
+RUN R -e "install.packages('reshape2')"
+RUN R -e "install.packages('RColorBrewer')"
+
+
+
 
 RUN mkdir /home/rstudio/output
 
