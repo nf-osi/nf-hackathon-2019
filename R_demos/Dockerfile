@@ -14,29 +14,10 @@ RUN R -e "install.packages('synapserutils', repos=c('http://ran.synapse.org', 'h
 
 ## install bioconductor packages
 RUN R -e "install.packages('BiocManager')"
-RUN R -e "BiocManager::install('GSVA')"
-RUN R -e "BiocManager::install('GSEABase')"
-RUN R -e "BiocManager::install('org.Hs.eg.db')"
-RUN R -e "BiocManager::install('limma')"
-RUN R -e "BiocManager::install('GOsummaries')"
-RUN R -e "BiocManager::install('GSVAdata')"
-RUN R -e "BiocManager::install('biomaRt')"
+RUN R -e "BiocManager::install(c('GSVA', 'GSEABase', 'org.Hs.eg.db', 'limma', 'GOSummaries', 'GSVAdata', 'biomaRt'))"
 
 ## install cran packages
-RUN R -e "install.packages('gProfileR')"
-RUN R -e "install.packages('umap')"
-RUN R -e "install.packages('dbscan')"
-RUN R -e "install.packages('ggfortify')"
-RUN R -e "install.packages('pheatmap')"
-RUN R -e "install.packages('ggpubr')"
-RUN R -e "install.packages('DT')"
-RUN R -e "install.packages('maftools')"
-RUN R -e "install.packages('here')"
-RUN R -e "install.packages('reshape2')"
-RUN R -e "install.packages('RColorBrewer')"
-
-
-
+RUN R -e "install.packages(c('gProfileR', 'umap', 'dbscan', 'ggfortify', 'pheatmap', 'ggpubr', 'DT', 'maftools', 'here', 'reshape2', 'RColorBrewer'))"
 
 RUN mkdir /home/rstudio/output
 

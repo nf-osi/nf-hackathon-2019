@@ -4,6 +4,9 @@ FROM jupyter/base-notebook
 ##jupyter does not have root user as default, so switch to root to use apt-get and pip3
 USER root 
 
+RUN apt-get update
+Run apt-get -y install gcc
+
 #upgrade pip and get synapseclient
 RUN pip install --upgrade pip
 RUN pip install synapseclient numpy pandas seaborn umap-learn matplotlib rpy2 adjustText hdbscan sklearn dfply bokeh 
