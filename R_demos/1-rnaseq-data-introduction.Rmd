@@ -299,14 +299,14 @@ library(biomaRt)
 #get mapping from enst to hgnc
 mart = useMart("ensembl", dataset="hsapiens_gene_ensembl")
 my_chr <- c(1:22,'X','Y')
-map <- getBM(attributes=c("entrezgene","hgnc_symbol"),mart=mart,filters='chromosome_name',values=my_chr)
+map <- getBM(attributes=c("entrezgene_id","hgnc_symbol"),mart=mart,filters='chromosome_name',values=my_chr)
   
 entrez<-map[match(rownames(mat),map[,2]),1]
 mat<-mat[which(!is.na(entrez)),]
 rownames(mat)<-entrez[!is.na(entrez)]
 
 # override parallel::detectCores in case it fails to prevent gsva from failing
-requireNamespace(parallel)
+requireNamespace('parallel')
 if (is.na(parallel::detectCores())) {
   my.detectCores = function() {
     return(1)
