@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Getting Started
 
-This document aims to guide the hackathon participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available exomeSeq datasets. The available dataset has been carefully curated to include genomic variant (exomeSeq) data from normal and three different tumor types from two different study initiatives into a single platform (a harmonized dataset). 
+This document aims to guide the hackathon participants, who have limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available exomeSeq datasets. The available dataset has been carefully curated to include genomic variant (exomeSeq) data from normal and four different tumor types from three different study initiatives into a single platform (a harmonized dataset). 
 
 The scope of this document is to inform participants:
 
@@ -59,24 +59,30 @@ vc_cols = RColorBrewer::brewer.pal(n = 100, name = 'Spectral')
 
 ## Accessing or downloading data from Synapse
 
-Please look up the SynID of the relevant datafile and access it using the __synGet__ command of *synapser*. Load the required csv file containing the whole exome sequencing data directly into your Rstudio IDE by adding __$path__ to the accessed file-entity. This file contains genomic variant data that has been collected from NF1 patients by various researchers as a part of various different studies. 
+Please look up the SynID of the relevant data table and access it using the __synTableQuery__ command of *synapser*. This file contains genomic variant data that has been collected from NF1 patients by various researchers as a part of various different studies. 
 
 ```{r load data, eval=TRUE, results='show', message=FALSE, warning=FALSE}
 
-entity <- synGet("syn19955828")  # download file 
-exome_data <- read_csv(entity$path) # read csv file 
+entity <- synGet("syn20554939")  # download file 
+exome_data <- synTableQuery("SELECT * FROM syn20554939")$asDataFrame()
 
 ```
 &nbsp;
 
 # Exploring the data files
 
-The accessed file is a dataframe which contains the genomic variant data collected from normal and tumor samples of two different tumor types. The last few columns of the dataframe contain meta-data associated with the samples. All silent mutations (mutations that do not affect the sequence of amino acids in the protein product of the gene) have been removed to facilitate analysis of mutations that may affect protein sequences.
+The accessed file is a dataframe which contains the genomic variant data collected from normal and tumor samples of four different tumor types. The last few columns of the dataframe contain meta-data associated with the samples. All silent mutations (mutations that do not affect the sequence of amino acids in the protein product of the gene) have been removed to facilitate analysis of mutations that may affect protein sequences.
 
 ## Structure of the file
 
 Lets first take a brief look at the contents of the accessed file:
 ```{r explore data, eval=TRUE, results='show', message=FALSE, warning=FALSE, include=TRUE}
+
+# Clean up dataframe
+
+exome_data$sex[exome_data$sex == "male"] <- "Male"
+exome_data$sex[exome_data$sex == "female"] <- "Female"
+exome_data <- exome_data[,-c(1:2)]
 
 ##Inspect the file
 print("Contents of the file:")
@@ -265,7 +271,7 @@ myEnv$tab
 
 ```
 
-We notice that the PCA seems to identify two different clusters in the data based on this metric, and also identifies one sample as an outlier. The panels below show the different types of mutations observed in some of the genes that contribute to the first and second principal components of the analysis.
+We notice that the PCA seems to identify two different clusters in the data based on this metric, and also identifies few samples as outliers. The panels below show the different types of mutations observed in some of the genes that contribute to the first and second principal components of the analysis.
 
 ```{r }
 myEnv$tab1
