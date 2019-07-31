@@ -26,7 +26,7 @@ These instructions assume that you:
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
-3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+3. Do `docker run -e PASSWORD=<mypassword> -e ROOT=true --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
 4. Open your preferred browser and navigate to `localhost:8787`. Login using the username "rstudio" and the password that you set in step 3. 
 5. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
@@ -61,7 +61,7 @@ Please note, it's not necessary to run any of the docker containers we provide o
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
-3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+3. Do `docker run -e PASSWORD=<mypassword> -e ROOT=true --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
 5. Open your preferred browser and use the External IP you noted in step 8 of the previous section to navigate to `external_ip:8787` - e.g. `12.345.678.910:8787`. Login using the username "rstudio" and the password that you set in step 4. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
