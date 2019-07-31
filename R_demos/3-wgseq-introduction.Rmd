@@ -55,24 +55,29 @@ synLogin()
 
 ## Accessing or downloading data from Synapse
 
-Please look up the SynID of the relevant datafile and access it using the __synGet__ command of *synapser*. Load the required csv file containing the whole genome sequencing data directly into your Rstudio IDE by adding __$path__ to the accessed file-entity. 
+Please look up the SynID of the relevant data table and access it using the __synTableQuery__ command of *synapser*. 
 
 ```{r load data, eval=TRUE, results='show', message=FALSE, warning=FALSE}
 
-entity <- synGet("syn20338782")  # access file entity 
-wgs_data <- read_csv(entity$path) # read csv file (dataframe with associated metadata)
+entity <- synGet("syn20551862")  # access file entity 
+wgs_data <- synTableQuery("SELECT * FROM syn20551862")$asDataFrame()
 
 ```
 &nbsp;
 
 # Exploring the data files
 
-The accessed file is a dataframe which contains the genomic variant data collected from normal and tumor samples of two different tumor types under two different study initiatives. The last few columns of the dataframe contain meta-data associated with the samples. All silent mutations (mutations that do not affect the sequence of amino acids in the protein product of the gene) have been removed to facilitate analysis of mutations that may affect protein sequences.
+The accessed file is a dataframe which contains the genomic variant data collected from normal and tumor samples under the cNF study initiative. The last few columns of the dataframe contain meta-data associated with the samples. All silent mutations (mutations that do not affect the sequence of amino acids in the protein product of the gene) have been removed to facilitate analysis of mutations that may affect protein sequences.
 
 ## Structure of the file
 
 Lets first take a brief look at the contents of the accessed file:
 ```{r explore data, eval=TRUE, results='show', message=FALSE, warning=FALSE, include=TRUE}
+
+# Clean up dataframe
+wgs_data$sex[wgs_data$sex == "male"] <- "Male"
+wgs_data$sex[wgs_data$sex == "female"] <- "Female"
+wgs_data <- wgs_data[,-c(1:2)]
 
 print("Contents of the file:")
 head(wgs_data)
@@ -273,7 +278,7 @@ Since our PCA seems to capture only ~40% of the variance in the data, lets try a
 # Make a hypothetical scoring matrix
 select_df <- select_df %>% mutate(impactScore = ifelse(select_df$IMPACT == "HIGH", 1,
                                                        ifelse(select_df$IMPACT == "MODERATE", 1, 0))) # add dummy numerics for categorical variables
-select_df <- select_df %>% mutate(isBenign = ifelse(str_detect(select_df$PolyPhen, "benign"), -(extract_numeric(select_df$PolyPhen)), 0.000001))  # add negative weights to benign mutations
+select_df <- select_df %>% mutate(isBenign = ifelse(str_detect(select_df$PolyPhen, "benign"), (extract_numeric(select_df$PolyPhen)), 0.000001))  # add negative weights to benign mutations
 select_df <- select_df %>% mutate(isDamaging = ifelse(str_detect(select_df$PolyPhen, "benign"), 0.000001, extract_numeric(select_df$PolyPhen))) # add positive weights to damaging mutations
 select_df <- select_df %>% mutate(totHits = rowSums(select_df[,c(33:38)])) # count number of mutational hits
 select_df$isDamaging[(is.na(select_df$isDamaging) == TRUE)] <- 0
