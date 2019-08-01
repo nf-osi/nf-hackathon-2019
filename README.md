@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/Sage-Bionetworks/nf-hackathon-2019/blob/master/Banner%20FNL.png" alt="banner" width="800"/>
+<img src="https://github.com/Sage-Bionetworks/nf-hackathon-2019/blob/master/Banner%20FNL-R1.png" alt="banner" width="800"/>
 </p>
  
 The Children’s Tumor Foundation (CTF), the Neurofibromatosis Therapeutic Acceleration Program (NTAP), Sage Bionetworks, and the Silicon Valley AI group (SVAI) are excited to announce the second Neurofibromatosis (NF) hackathon that will be held in San Francisco in concomitance with the 2019 CTF Patient Forum and NF Conference.  The first-ever [NF2 hackathon](https://sv.ai/hackathon), held in SF in June 2017, focused on a single set of genetic data (donated by Onno Faber, entrepreneur, and NF2 patient). Following in the footsteps of this successful event, the 2019 Hackathon will focus on analyzing diverse datasets including genomic, drug screening, drug-target association, imaging, and other data for all the three conditions of NF (NF1, NF2, Schwannomatosis).
@@ -26,7 +26,7 @@ These instructions assume that you:
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
-3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+3. Do `docker run -e PASSWORD=<mypassword> -e ROOT=true --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
 4. Open your preferred browser and navigate to `localhost:8787`. Login using the username "rstudio" and the password that you set in step 3. 
 5. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 
@@ -61,7 +61,7 @@ Please note, it's not necessary to run any of the docker containers we provide o
 
 1. Open a command line interface, such as Terminal. 
 2. Do `docker pull nfosi/nf-hackathon-2019-r` to get the Docker image. 
-3. Do `docker run -e PASSWORD=<mypassword> --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
+3. Do `docker run -e PASSWORD=<mypassword> -e ROOT=true --rm -p 8787:8787 nfosi/nf-hackathon-2019-r` to start the container. Make sure to replace `<mypassword>` with a unique password. It cannot be "rstudio"!
 5. Open your preferred browser and use the External IP you noted in step 8 of the previous section to navigate to `external_ip:8787` - e.g. `12.345.678.910:8787`. Login using the username "rstudio" and the password that you set in step 4. 
 6. In the Files pane, click on "0-setup.Rmd" to get started, and to learn how to make your Synapse credentials available to `synapser`. 
 

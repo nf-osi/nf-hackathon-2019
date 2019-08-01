@@ -316,7 +316,7 @@ mat<-mat[which(!is.na(entrez)),]
 rownames(mat)<-entrez[!is.na(entrez)]
 
 # override parallel::detectCores in case it fails to prevent gsva from failing
-requireNamespace(parallel)
+requireNamespace('parallel')
 if (is.na(parallel::detectCores())) {
   my.detectCores = function() {
     return(1)

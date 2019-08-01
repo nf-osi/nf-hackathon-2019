@@ -165,8 +165,8 @@ Then, we take the binarized target matrix (`target_data_filt`) and use UMAP (`um
 ```{r message=FALSE, warning=FALSE}
 foo <- umap(target_data_filt, 
             method = "naive", 
-            epochs = 500,
-            n_neighbors = 3,
+            epochs = 2000,
+            n_neighbors=4,
             metric = "euclidean",
             random.state = 90210)
 
@@ -200,15 +200,15 @@ ggplot(foo2) + geom_point(aes(x = V1, y = V2, color = log(median_response)), alp
 
 What if we want to identify clusters of drugs with a low median IC50? 
 
-Well, we can use `umap` to reduce the dimensionality of the drug-target data, and then cluster these reduced dimensions using a method like HDBSCAN. So let's do that. I've taken the suggestion of the umap-learn documentation and doubled the number of nearest neighbors from before, (3 to 6) and reduced the minimum distance to 0. I've also moved from 2 components for nicer visualization, to 3 for some more separation. I tried several numbers of components between 3 and 50, and found that anything above three resulted in too many small clusters to be useful.
+Well, we can use `umap` to reduce the dimensionality of the drug-target data, and then cluster these reduced dimensions using a method like HDBSCAN. So let's do that. I've taken the suggestion of the umap-learn documentation and doubled the number of nearest neighbors from before, (3 to 6). Previously, I've tried several numbers of components between 3 and 50, and found that anything above three resulted in too many small clusters to be useful.
 
 
 ```{r}
 
 foo <- umap(target_data_filt, 
             method = "naive", 
-            epochs = 500,
-            n_neighbors=3,
+            epochs = 2000,
+            n_neighbors=8,
             metric = "euclidean",
             random.state = 90210)
 
