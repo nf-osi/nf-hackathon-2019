@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Getting Started
 
-This document aims to guide the challenge particpants with limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available RNASeq datasets. The available dataset has been carefully curated to include gene expression (RNASeq) data from seven different tumor types from four different study initiatives into a single platform (a harmonized dataset). 
+This document aims to guide the challenge particpants with limited exposure to Synapse as a platform and clinical/biological data, through exploration and analysis of the available RNASeq datasets. The available dataset has been carefully curated to include gene expression (RNASeq) data from eight different tumor types from four different study initiatives into a single platform (a harmonized dataset). 
 
 The scope of this document is to inform participants:
 
@@ -43,6 +43,12 @@ library(BiocManager)
 library(gProfileR)
 library(GOsummaries)
 library(tidyverse)
+library(ggfortify)
+library(GSVA)
+library(GSVAdata)
+library(biomartr)
+library(pheatmap)
+library(biomaRt)
 
 ```
 
@@ -59,32 +65,38 @@ synLogin()
 
 ## Accessing or downloading data from Synapse
 
-* Look up the SynID of the required file and then use the __synGet__ command to access the folder. 
-* Download the required csv file by adding __$path__ to the accessed file
+* Look up the SynID of the required file and then use the __synTableQuery__ command to access the required data table.
 
 ```{r get_data_from_synapse, echo=TRUE, eval=TRUE}
 
 #### Download the harmonized file
 
 # Set file entity that can be changed easily for different files [User Input]
-fileEntity <- synGet('syn18137070')
+fileEntity <- synGet('syn20449214')
 # Download the data file
-genes.with.meta<-read.csv(gzfile(fileEntity$path))
+genes.with.meta <- synTableQuery("SELECT * FROM syn20449214")$asDataFrame()
 ```
 
-# Explore the data files
+# Exploring the data files
+
+The accessed file is a dataframe which contains the gene expression data collected from normal and tumor samples of eight different tumor types. The last few columns of the dataframe contain meta-data associated with the samples. 
 
 ## Structure of the file
 
+Lets first take a brief look at the contents of the accessed file:
 ```{r explore_data, echo=T, eval=TRUE, message=FALSE, warning=FALSE}
+
+# Clean up dataframe
+genes.with.meta$sex[genes.with.meta$sex == "male"] <- "Male"
+genes.with.meta$sex[genes.with.meta$sex == "female"] <- "Female"
+colnames(genes.with.meta)[colnames(genes.with.meta)=="used"] <- "id"
 
 ##Inspect the file
 print("Dimensions of the file:")
 dim(genes.with.meta)
-print("Structure of the file:")
-str(genes.with.meta)
 print("Contents of the file:")
 head(genes.with.meta)
+
 
 ```
 
@@ -96,7 +108,7 @@ Var | Description
  _specimenID_  |  individual samples
  _species_  |  the source of the specimen
  _age_  |  the age of the patient 
- _Sex_  |  the sex of the patient
+ _sex_  |  the sex of the patient
  _tumorType_  |  the the type of tumor, can be one of 7 different diagnoses
  _isCellLine_  |  indicates whether the origin tissue was a cell line or a patient
  _study_  |  the specific initiative/consortia that the study was a part of
@@ -115,8 +127,8 @@ For example, we can visualize the data distribution according to sex.
 
 
 #Plot Metadata
-ggplot(genes.with.meta, aes(x=Sex))+
-    geom_bar(aes(x=Sex,fill=tumorType),position='dodge')+
+ggplot(genes.with.meta, aes(x=sex))+
+    geom_bar(aes(x=sex,fill=tumorType),position='dodge')+
     ggtitle('RNA-seq sample distribution')
 
 
@@ -162,10 +174,11 @@ To explore the data and find meaningful differences between samples, we first pe
 ```{r PCA, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
 
 ###PCA plots  
+#genes.with.meta$specimenID <- as.factor(genes.with.meta$specimenID)
 
 doPcaPlots<-function(datafile, env){
   #create matrix
-  combined.mat=reshape2::acast(datafile,Symbol~id,value.var="zScore")
+  combined.mat=reshape2::acast(datafile,Symbol~specimenID,value.var="zScore", fun.aggregate = mean)
   
   #then remove missing
   missing=which(apply(combined.mat,1,function(x) any(is.na(x))))
@@ -180,14 +193,14 @@ doPcaPlots<-function(datafile, env){
   
   genes1=rownames(combined.mat)[rev(order(loads[,1]))[1:25]]
   #now take those loadings from pc1
-  env$tab1 <- ggplot(subset(datafile,Symbol%in%genes1[1:10]))+
-                    geom_jitter(aes(x=Symbol,y=zScore,col=tumorType,shape=study))+
+  env$tab1 <- ggplot(subset(datafile,Symbol%in%genes1[1:5]))+
+                    geom_jitter(aes(x=Symbol,y=zScore,col=tumorType,shape=study), width =0.1, size=2, height = 0.1)+
                     ggtitle('Selected gene counts from PC1')
 
   genes2=rownames(combined.mat)[rev(order(loads[,2]))[1:25]]
   #now take those loadings from pc2
-  env$tab2 <- ggplot(subset(datafile,Symbol%in%genes2[1:10]))+
-              geom_jitter(aes(x=Symbol,y=zScore,col=tumorType,shape=study))+
+  env$tab2 <- ggplot(subset(datafile,Symbol%in%genes2[1:5]))+
+              geom_jitter(aes(x=Symbol,y=zScore,col=tumorType,shape=study), width =0.1, size=2, height = 0.1)+
               ggtitle('Selected gene counts from PC2')
 }
 
@@ -215,11 +228,11 @@ with.log=genes.with.meta%>%mutate(logCounts=log10(totalCounts+0.0001))
   
 ##now take mean across sex,tumor type and gene
 diffexdata <- with.log%>%
-  group_by(tumorType,Symbol,Sex)%>%
+  group_by(tumorType,Symbol,sex)%>%
   mutate(mcounts=mean(logCounts))%>%
-  dplyr::select(tumorType,Sex,Symbol,mcounts)%>%
-  unique()%>%spread(Sex,mcounts)%>%
-  mutate(MaleVsFemale=male-female)
+  dplyr::select(tumorType,sex,Symbol,mcounts)%>%
+  unique()%>%spread(sex,mcounts)%>%
+  mutate(MaleVsFemale=Male-Female)
 
 ##Plot fold change
 diffExBoxplot<-function(diff_file,gene){
@@ -242,7 +255,7 @@ diffExBoxplot(diffexdata,'NF2')
 
 While thousands of genes can change expression levels, the biological relevance of such changes are estimated by investigating the changes in biological processes in which the genes are involved. To get a sense of which biological processes may be linked to our list of upregulated or downregulated genes, we may perform a _Gene Ontology (GO) Enrichment Analysis_ and visualize the most common processes relevant to our analysis. In the following plot, the biological processes enriched in our list of upregulated genes (left, G1) and downregulated genes (right, G2) for Low Grade Glioma is visualized in the form of a word cloud. The most significantly enriched term is on the top. These terms can give us subtle indications as to which cellular signaling pathways or gene regulatory networks may be most interesting in our follow-up analyses.
 
-```{r GOsummaries, echo=T, eval=TRUE, message=FALSE, warning=FALSE}
+```{r GOsummaries, echo=T, eval=TRUE, message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
 
 #Make gene lists
 DEG_genelist <- diffexdata[order(-diffexdata$MaleVsFemale),]
@@ -286,20 +299,17 @@ plot(gosummaries_object,
 
 Generally disease conditions can change a _group of genes_ ( _gene-sets_ ) simultaneously, thus affecting one or more cellular signaling pathways and gene regulatory networks. Changes in _gene-sets_ can be visualized to get an idea about how cellular signaling pathways may be affected by the disease condition.
 
-```{r PathwayAnalysis, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE}
+```{r PathwayAnalysis, echo=T, eval=TRUE, results='hide', message=FALSE, warning=FALSE, fig.height=10, fig.width=10}
 
-library(GSVA)
-library(GSVAdata)
-mat<-reshape2::acast(genes.with.meta,Symbol~id,value.var='zScore')
-missing<-which(apply(mat,1,function(x) any(is.na(x))))
-mat<-mat[-missing,]
+mat<-reshape2::acast(genes.with.meta,Symbol~specimenID,value.var='zScore',fun.aggregate = mean)
+#missing<-which(apply(mat,1,function(x) any(is.na(x))))
+#mat<-mat[-missing,]
 data("c2BroadSets")
   
-library(biomaRt)
 #get mapping from enst to hgnc
-mart = useMart("ensembl", dataset="hsapiens_gene_ensembl")
+mart = biomaRt::useMart("ensembl", dataset="hsapiens_gene_ensembl")
 my_chr <- c(1:22,'X','Y')
-map <- getBM(attributes=c("entrezgene","hgnc_symbol"),mart=mart,filters='chromosome_name',values=my_chr)
+map <- getBM(attributes=c("entrezgene_id","hgnc_symbol"),mart=mart,filters='chromosome_name',values=my_chr)
   
 entrez<-map[match(rownames(mat),map[,2]),1]
 mat<-mat[which(!is.na(entrez)),]
@@ -316,16 +326,15 @@ if (is.na(parallel::detectCores())) {
 
 res=gsva(mat,method='ssgsea',gset.idx.list=c2BroadSets)
 
-library(pheatmap)
 vars<-apply(res,1,var)
-annotes=genes.with.meta%>%dplyr::select(id,age,Sex,tumorType,cellCulture,study)%>%unique
-rownames(annotes)<-annotes$id
+annotes=genes.with.meta%>%dplyr::select(specimenID,age,sex,tumorType,isCellLine,study)%>%unique
+rownames(annotes)<-annotes$specimenID
   
 pheatmap(res[names(sort(vars)[1:50]),],
                        labels_col=rep("",ncol(res)),
                        fontsize_row = 4,
                        clustering_method = 'ward.D2',
-                       annotation_col = dplyr::select(annotes,-id), 
+                       annotation_col = dplyr::select(annotes,-specimenID), 
                        width = 16, 
                        height = 8)
 
