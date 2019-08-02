@@ -18,7 +18,7 @@ If you like, you can also use these containers as a basis for creating your own 
 
 These instructions assume that you:
 * have registered for a [Synapse account](https://www.synapse.org/#!RegisterAccount:0) 
-* are a member of the [2019 Hackathon Participants Team](https://www.synapse.org/#!Team:3389360) on Synapse. 
+* have followed the [How to Participate and Getting the Data!](https://www.synapse.org/#!Synapse:syn18666641/wiki/591026) instructions on Synapse. 
 * have [installed Docker Community Edition](https://docs.docker.com/v17.12/install/) and that the docker service is running on your machine
 * are running a Unix-based OS, such as Ubuntu or Mac. These instructions have not been tested on Windows-based platforms. If you are using Google Cloud Platform, please see the [Google Cloud Docker instructions](#google-cloud).
 
