@@ -80,7 +80,7 @@ Specificially, we will:
 
 ```{r message=FALSE, warning=FALSE}
 
-drug_data <- synGet("syn17462699")$path %>% read.csv() 
+drug_data <- synGet("syn20684161")$path %>% read.csv() 
 head(drug_data)
 
 ```
