@@ -1,6 +1,5 @@
 library(synapser)
 
-
 reqs<-synRestGET("/team/3392900/openRequest") 
 
 ids <- sapply(reqs$results, function(x){
@@ -24,7 +23,7 @@ sapply(ids, function(x){
   
   if(all){
     print(paste0(x, ' in all required teams'))
-    synRestPUT(paste0('/team/3392900/member/',x))
+    #synRestPUT(paste0('/team/3392900/member/',x))
     }else{
     print(paste0(x, ' not in all required teams'))
   }
