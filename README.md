@@ -81,4 +81,20 @@ Please note, it's not necessary to run any of the docker containers we provide o
 
 These instructions for running Docker on Windwows courtesy of [Lars Ericson](https://www.synapse.org/#!Synapse:syn18666641/discussion/threadId=5866):
 
-We are given some [docker images provisioned with data and Python or R](https://github.com/Sage-Bionetworks/nf-hackathon-2019) for quick setup for the challenge.\n\nI haven't tried to dual-boot my Windows Home Edition PC to Linux.  I can still run the docker images.  Here is the path:\n\n* Download [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).  Note this is what works on Windows Home Edition.  You need Windows Professional to run the more recent docker.  But it's OK, it still works.\n\n* Run the newly installed Docker Quickstart \n\n* In Docker Quickstart, download one of the docker images listed on the GitHub, for example\n\n```\ndocker pull nfosi/nf-hackathon-2019-py\n```\n\n* In Docker Quickstart, run \n\n\n```\ndocker-machine ip\n```\nto get the IP address.  Suppose it is 123.456.78.910.  \n\n* Run the docker image\n\n```\ndocker run -p 8888:8888 nfosi/nf-hackathon-2019-py\n```\nIt will tell you something like\n\n```\n[I 00:16:50.410 NotebookApp] The Jupyter Notebook is running at:\n[I 00:16:50.411 NotebookApp]  http://127.0.0.1:8888/?token=fa13464756954b325753106b75c8398c991ce9d05ff523de\n```\n\n* Replace IP address 127.0.0.1 with the string you wrote down in Step 3 (because Windows will probably be blocked 127.0.0.1 for Docker).  So something like\n\n```\nhttp://123.456.78.910:8888/?token=fa13464756954b325753106b75c8398c991ce9d05ff523de\n```\n\n* Paste the modified URL into your Browser to get to the Docker image Jupyter notebook.\n\nP.S. Once I looked at the notebooks running inside the Docker, then I looked at the GitHub, I realized that the shorter solution is just to run these notebooks directly in a local Python inside Windows: https://github.com/Sage-Bionetworks/nf-hackathon-2019/tree/master/py_demos\n"
+We are given some [docker images provisioned with data and Python or R](https://github.com/Sage-Bionetworks/nf-hackathon-2019) for quick setup for the challenge.
+
+I haven't tried to dual-boot my Windows Home Edition PC to Linux.  I can still run the docker images.  Here is the path:
+
+* Download [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).  Note this is what works on Windows Home Edition.  You need Windows Professional to run the more recent Docker.  But it's OK, it still works.
+
+* Run the newly installed Docker Quickstart 
+
+* In Docker Quickstart, download one of the docker images listed on the GitHub, for example ```docker pull nfosi/nf-hackathon-2019-py```
+
+* In Docker Quickstart, run ```docker-machine ip``` to get the IP address.  Suppose it is 123.456.78.910.
+
+* Run the docker image ``` docker run -p 8888:8888 nfosi/nf-hackathon-2019-py ``` It will tell you something like ```[I 00:16:50.410 NotebookApp] The Jupyter Notebook is running at: [I 00:16:50.411 NotebookApp]  http://127.0.0.1:8888/?token=fa13464756954b325753106b75c8398c991ce9d05ff523de```
+
+* Replace IP address 127.0.0.1 with the string you wrote down in Step 3 (because Windows will probably be blocked 127.0.0.1 for Docker).  So something like ``` http://123.456.78.910:8888/?token=fa13464756954b325753106b75c8398c991ce9d05ff523de ```
+
+* Paste the modified URL into your Browser to get to the Docker image Jupyter notebook.
