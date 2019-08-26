@@ -2,6 +2,9 @@
 <img src="https://github.com/Sage-Bionetworks/nf-hackathon-2019/blob/master/Banner%20FNL-R1.png" alt="banner" width="800"/>
 </p>
  
+ 
+## About the event
+
 The Children’s Tumor Foundation (CTF), the Neurofibromatosis Therapeutic Acceleration Program (NTAP), Sage Bionetworks, and the Silicon Valley AI group (SVAI) are excited to announce the second Neurofibromatosis (NF) hackathon that will be held in San Francisco in concomitance with the 2019 CTF Patient Forum and NF Conference.  The first-ever [NF2 hackathon](https://sv.ai/hackathon), held in SF in June 2017, focused on a single set of genetic data (donated by Onno Faber, entrepreneur, and NF2 patient). Following in the footsteps of this successful event, the 2019 Hackathon will focus on analyzing diverse datasets including genomic, drug screening, drug-target association, imaging, and other data for all the three conditions of NF (NF1, NF2, Schwannomatosis).
  
 We believe that open science, collaboration, and talented people are three main ingredients we need to bake a cure for NF. The event plans to attract experts in AI, genomics, bioinformatics, computer science, and life science to glean new insights into these rare diseases.  Gathering these experts to find new associations and new perspectives, revolutionize the way we think about NF, and help make great discoveries happen! 
