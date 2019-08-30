@@ -1,0 +1,3 @@
+[submodule "GoodDoc"]
+	path = GoodDoc
+	url = https://github.com/allaway/GoodDoc
