@@ -1,4 +1,5 @@
 library(synapser)
+synLogin()
 
 reqs<-synRestGET("/team/3392900/openRequest") 
 
