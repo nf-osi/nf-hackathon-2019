@@ -61,15 +61,11 @@ Specificially, we will:
 
 -get the dataset 
 
--filter for absolute IC50 values only, also known as GI50 (this different than the relative IC50, which is the half-maximal inhibition). While it's not quite as simple as this, you can generally interpret these values as such: the lower this value is, the greater effect the drug has on the cell. 
+-filter for Simpson AUC. AUC is one measure of cell viability. The lower the cell viability across a range of doses, the lower the AUC. We can use this value because all of the dose-ranges are the same. Note that comparing across different doses can be more difficult. 
 
 -filter for NF1 deficient pNF cell lines
 
--remove outlier cell line 'ipNF95.11b C' (see plot below)
-
--filter out the combination data (too complicated for a first pass of this method)
-
--calculate the median IC50 for each drug across all cell lines, when we have an IC50 for at least three cell lines for a given drug. 
+-calculate the median AUC for each drug across all cell lines, when we have an AUC for at least three cell lines for a given drug. 
 
 -select only the information we need
 
@@ -77,32 +73,50 @@ Specificially, we will:
 
 - binarize the target dataset after it has been reduced to only the drugs we can evaluate
 
-
 ```{r message=FALSE, warning=FALSE}
 
-drug_data <- synGet("syn20684161")$path %>% read.csv() 
+drug_data <- synGet("syn20700260")$path %>% read.csv() 
 head(drug_data)
 
 ```
+
+This dataset has many columns, here's some info about each:
+model_name: the name of the cells tested in the experiment
+model_type: always a cell line for this data
+cellosaurus_id: if cell line is known to cellosaurus, the ID is here
+organism_name: the organism of the model_name
+disease_name: the disease modeled by the model
+disease_efo_id: the experimental factor ontology ID for the disease
+symptom_name: the symptom modeled by the model
+symptom_efo_id: the experimental factor ontology ID for the symptom
+experiment_synapse_id: the source synapse ID for this observation
+study_synapse_id: the source synapse project for this observation
+funder: who funded the work
+drug_name: the source's name/ID for the drug
+DT_explorer_internal_id: maps to the internal_id at synapse.org/dtexplorer - can be used to map targets and synonyms of names
+dosage_unit: the unit of the dosage range
+drug_screen_id: a unique ID for each dose-response curve
+dosage: the range of doses tested
+response_type: the summary metric this row captures
+response: the value of the summary metric
+response_unit: if applicable, a unit for the response value
+
 
 ```{r message=FALSE, warning=FALSE}
 
 pnf <- c("ipNF05.5", "ipNF06.2A", "ipNF95.11b C/T", "ipnNF95.11C", "ipNF95.6", "ipNF05.5 (mixed clone)", "ipNF95.11b C")
 
 drug_data_filt_1 <- drug_data %>% 
-  filter(response_type == "IC50_rel") %>% 
+  filter(response_type == "AUC_Simpson") %>% 
   filter(model_name %in% pnf) %>% 
   group_by(drug_screen_id) %>% 
   filter(n() == 1) %>% 
-  ungroup() %>%  
-  mutate(response = case_when(response < 50 ~ response,
-                              response >= 50 ~ 50))
+  ungroup()
 
 ggplot(data = drug_data_filt_1) +
   geom_boxplot(aes(x = model_name, y = response))
   
 drug_data_filt <- drug_data_filt_1 %>% 
-  filter(model_name != "ipNF95.11b C") %>% 
   group_by(DT_explorer_internal_id) %>% 
   filter(n() > 3) %>% 
   ungroup() %>% 
@@ -126,7 +140,7 @@ target_data_filt <- drug_data_filt %>%
 
 To get a sense of what this data usually looks like, we can take a look at some specific drugs. mTOR inhibitors are a class of drugs known to inhibit plexiform neurofibromas. KIF11 inhibitors are not associated with this (as far as we know).
 
-Let's plot a heatmap of the IC50s of all of the MTOR and KIF11 inhibitors in our dataset:
+Let's plot a heatmap of the AUCs of all of the MTOR and KIF11 inhibitors in our dataset:
 
 ```{r}
 
@@ -137,7 +151,6 @@ kif11 <- targets %>% filter(hugo_gene %in% c("KIF11")) %>% select(internal_id, s
 mtor_kif11 <- bind_rows(mtor,kif11) %>% filter(internal_id %in% drug_data_filt_1$DT_explorer_internal_id) %>% mutate(std_name = str_trunc(as.character(std_name),15))
 
 drug_data_filt_heatmap<- drug_data_filt_1 %>% 
-  filter(model_name != "ipNF95.11b C") %>% 
   filter(DT_explorer_internal_id %in% mtor_kif11$internal_id) %>% 
   group_by(model_name, DT_explorer_internal_id) %>% 
   summarize('median_response' = median(response))%>% 
@@ -156,7 +169,7 @@ pheatmap::pheatmap(drug_data_filt_heatmap,
 
 ```
 
-It looks like KIF11 inhibitors are generally not effective (high IC50) while mTOR inhibitors are quite potent (IC50 < 5 nM). However, this is an oversimplification. Most of these molecules have many targets, not just one, and there's lots of overlap between molecules. It might be better to map the space of all targets of a drug rather than just look at one at a time. One approach to doing this is to use a dimensionality reduction technique. 
+It looks like KIF11 targeting drugs and MTOR targeting drugs have a mixture of effects based on the molecule and cell line. Most of these molecules have many targets, not just one, and there's lots of overlap between molecules. It might be better to map the space of all targets of a drug rather than just look at one at a time. One approach to doing this is to use a dimensionality reduction technique. 
 
 ## Dimensionality Reduction
 
@@ -178,7 +191,7 @@ foo2 <- foo$layout %>% as.data.frame() %>%
 
 ## Plot results
 
-Here, we're looking at the 2 dimensions generated by UMAP. Each point is a drug, it's position is determined by it's target profile, and we've colored each by the pIC50 (log(IC50, median across all pNF cell lines)). 
+Here, we're looking at the 2 dimensions generated by UMAP. Each point is a drug, it's position is determined by it's target profile, and we've colored each by the AUC. 
 
 ```{r}
 
@@ -188,17 +201,17 @@ ggplot(foo2) + geom_point(aes(x = V1, y = V2, color = log(median_response)), alp
 
 ##Plot results with labels
 
-Let's label the drug names there the IC50 is 50nM or less, which is a pretty potent response in cell lines.
+Let's label the some of the most potent drugs (AUC < 30). 
 
 ```{r}
 ggplot(foo2) + geom_point(aes(x = V1, y = V2, color = log(median_response)), alpha = 0.5) + 
   scale_color_viridis_c(option = "C")  + 
-  ggrepel::geom_label_repel(data = foo2 %>% filter(median_response < 0.05), aes(x = V1, y = V2, label = std_name), size = 2)
+  ggrepel::geom_label_repel(data = foo2 %>% filter(median_response < 30), aes(x = V1, y = V2, label = std_name), size = 2)
 
 ```
 
 
-What if we want to identify clusters of drugs with a low median IC50? 
+What if we want to identify clusters of drugs with a low median AUC? 
 
 Well, we can use `umap` to reduce the dimensionality of the drug-target data, and then cluster these reduced dimensions using a method like HDBSCAN. So let's do that. I've taken the suggestion of the umap-learn documentation and doubled the number of nearest neighbors from before, (3 to 6). Previously, I've tried several numbers of components between 3 and 50, and found that anything above three resulted in too many small clusters to be useful.
 
@@ -250,12 +263,11 @@ ggplot(foo2) +
 
 ```
 
-
-Finally, we can select for only the best clusters and plot some labels see what drugs are in them Here, I'm filtering only for clusters that have a median IC50 < 250 nM across all cell lines and drugs for that cluster. An important note - this is the _median IC50_ for each cluster, so some of these drugs may have had no effect, and that could be masked by the overall cluster average. 
+Finally, we can select for only the best clusters and plot some labels see what drugs are in them Here, I'm filtering only for clusters that have a median AUC < 40 across all cell lines and drugs for that cluster. An important note - this is the _median AUC_ for each cluster, so some of these drugs may have had no effect, and that could be masked by the overall cluster average. 
 
 ```{r}
 
-foo3 <- foo2 %>% filter(median_response < 0.25) %>% mutate(cluster = as.factor(cluster))
+foo3 <- foo2 %>% filter(median_response < 40) %>% mutate(cluster = as.factor(cluster))
 
 ggplot(foo3) + 
   geom_point(aes(x = V1, y = V2, color = cluster), alpha = 0.5) + 
