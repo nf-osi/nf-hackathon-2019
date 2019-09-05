@@ -44,7 +44,7 @@ These instructions assume that you:
 5. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
 *IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output nfosi/nf-hackathon-2019-py
-` Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+` Alternatively, or in addition, you can save all of your results to Synapse using `synapseclient`.
 
 ### Google Cloud 
 
@@ -78,7 +78,7 @@ Please note, it's not necessary to run any of the docker containers we provide o
 4. The GCP SSH window will provide a link after running the previous command. It should look something like: `http://(c89a7a7be700 or 127.0.0.1):8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234`. Replace the portion in parentheses with your instance External IP address that you noted in Step 8 of the [Google Cloud Docker instructions](#google-cloud) section. Navigate to this address, e.g. `http://12.345.678.910:8888/?token=abcd1234abcd1234abcd1234abcd1234abcd1234abcd1234.`
 5. In the Files pane, click on "Work" and then "0-setup.ipynb" to get started, and to learn how to make your Synapse credentials available to the Python `synapseclient`. 
 
-*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output nfosi/nf-hackathon-2019-py`. Alternatively, or in addition, you can save all of your results to Synapse using `synapser`.
+*IMPORTANT NOTE* To save any results created during your Docker session, you'll need to mount a local directory to the Docker container when you run it. This will copy anything saved to the working directory to your local machine. Before step 4, do `mkdir output` to create an output directory locally. Then run the command in step 4 with a `-v` flag e.g. `docker run -p 8888:8888 -v $PWD/output:/home/jovyan/work/output nfosi/nf-hackathon-2019-py`. Alternatively, or in addition, you can save all of your results to Synapse using `synapseclient`.
 
 ### Running Docker containers on Windows
 
