@@ -14,7 +14,7 @@ RUN R -e "install.packages('synapserutils', repos=c('http://ran.synapse.org', 'h
 
 ## install bioconductor packages
 RUN R -e "install.packages('BiocManager')"
-RUN R -e "BiocManager::install(c('GSVA', 'GSEABase', 'org.Hs.eg.db', 'limma', 'GOsummaries', 'GSVAdata', 'biomaRt', 'maftools'))"
+RUN R -e "BiocManager::install(c('GSVA', 'GSEABase', 'org.Hs.eg.db', 'limma', 'GOsummaries', 'GSVAdata', 'biomaRt', 'maftools', 'Biostrings', ''))"
 
 ## install cran packages
 RUN R -e "install.packages(c('gProfileR', 'umap', 'dbscan', 'ggfortify', 'pheatmap', 'ggpubr', 'DT', 'here', 'reshape2', 'RColorBrewer'))"

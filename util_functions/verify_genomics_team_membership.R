@@ -9,7 +9,8 @@ ids <- sapply(reqs$results, function(x){
 
 required_teams <- c("3392680",
                     "3391263",
-                    "3392971")
+                    "3392971",
+                    "3389360") #hackathon team
 
 sapply(ids, function(x){
   print(x)
@@ -20,11 +21,12 @@ sapply(ids, function(x){
   a<- any(team_ids %in% required_teams[1])
   b<- any(team_ids %in% required_teams[2])
   c<- any(team_ids %in% required_teams[3])
-  all <- all(c(a,b,c))
+  d<- any(team_ids %in% required_teams[4])
+  all <- all(c(a,b,c,d))
   
   if(all){
     print(paste0(x, ' in all required teams'))
-    #synRestPUT(paste0('/team/3392900/member/',x))
+    synRestPUT(paste0('/team/3392900/member/',x))
     }else{
     print(paste0(x, ' not in all required teams'))
   }
