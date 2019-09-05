@@ -101,3 +101,7 @@ I haven't tried to dual-boot my Windows Home Edition PC to Linux.  I can still r
 * Replace IP address 127.0.0.1 with the string you wrote down in Step 3 (because Windows will probably be blocked 127.0.0.1 for Docker).  So something like ``` http://123.456.78.910:8888/?token=fa13464756954b325753106b75c8398c991ce9d05ff523de ```
 
 * Paste the modified URL into your Browser to get to the Docker image Jupyter notebook.
+
+### Documenting your Projects
+
+We've provided a template in a submodule of this repository. You can fork this submodule to start your own project to record your hackathon work! [Check it out here](https://github.com/allaway/GoodDoc/tree/477c0ba216fd47d965ffa197b9eaeb0037d53db3).
