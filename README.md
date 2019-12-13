@@ -1,8 +1,26 @@
 <p align="center">
 <img src="https://github.com/Sage-Bionetworks/nf-hackathon-2019/blob/master/Banner%20FNL-R1.png" alt="banner" width="800"/>
 </p>
- 
- 
+
+
+## Links to Projects
+
+This event has ended. You can find links to the research projects below, and keep scrolling for additional information about the event. Teams in **bold** were declared winners by our panel of [mentor-judges](https://sv.ai/neurofibromatosis-people)! 
+
+| Team  | Link | Description |
+| ------------- | ------------- | --- |
+| **nf-qiagen**  | https://github.com/SVAI/nf-qiagen | Inferring regulators and pathways involved in NF1 and NF2 tumors originating from Schwann cells using gene expression data |
+| **teamSTIR**  | https://github.com/SVAI/teamSTIR | Automated segmentation of whole body MRI using deep learning segmentation algorithms |
+| **Dermaviz**  | https://github.com/SVAI/Dermaviz | Dermaviz: Comprehensive Research Suite for integrated Phenotyping, Genotyping and 3D Modeling for NF patients |
+| **nullfunction**  |https://github.com/SVAI/nullfunction | Exploration of genomic, transcriptomic data in NF1 |
+| Team Shirin | https://github.com/SVAI/team-shirin | Database mining for CNF drug targets and mutation-histology correlations in NF1 |
+| teamone  | https://github.com/SVAI/teamone | Exploration of NF drug screening data |
+| tumor-tensors | https://github.com/SVAI/tumor-tensors | Tools for visualizing model results and dicom labels |
+| GuidanceCue  | https://github.com/SVAI/kinase-robot | Exploration of slit/robo pathway in neurofibroma data |
+| Gleukos | https://github.com/SVAI/Gleukos | Exploration of pNF drug screening data |
+| kinase-robot  | https://github.com/SVAI/kinase-robot | Exploration of NF kinomics data |
+| databiology | https://github.com/caballero/nf-hackathon-2019 | Exploration of NF metadata |
+
 ## About the event
 
 The Children’s Tumor Foundation (CTF), the Neurofibromatosis Therapeutic Acceleration Program (NTAP), Sage Bionetworks, and the Silicon Valley AI group (SVAI) are excited to announce the second Neurofibromatosis (NF) hackathon that will be held in San Francisco in concomitance with the 2019 CTF Patient Forum and NF Conference.  The first-ever [NF2 hackathon](https://sv.ai/hackathon), held in SF in June 2017, focused on a single set of genetic data (donated by Onno Faber, entrepreneur, and NF2 patient). Following in the footsteps of this successful event, the 2019 Hackathon will focus on analyzing diverse datasets including genomic, drug screening, drug-target association, imaging, and other data for all the three conditions of NF (NF1, NF2, Schwannomatosis).
